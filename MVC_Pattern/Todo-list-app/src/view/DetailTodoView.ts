@@ -2,6 +2,8 @@ import { TodoElement } from "../types/todo";
 
 class DetailTodoView {
   detailTodoDisplay: HTMLDivElement;
+  todoDeleteButton: HTMLButtonElement;
+  todoStateToggleButton: HTMLButtonElement;
 
   constructor() {
     const detailTodoDiv = document.querySelector<HTMLDivElement>("#detailTodo");
@@ -13,6 +15,10 @@ class DetailTodoView {
 
     this.detailTodoDisplay = document.createElement("div");
     this.detailTodoDisplay.id = "detailTodoDisplay";
+
+    this.todoDeleteButton = document.createElement("button");
+    this.todoDeleteButton.innerText = "delete";
+    this.todoStateToggleButton = document.createElement("button");
 
     detailTodoDiv.append(detailTodoTitle, this.detailTodoDisplay);
   }
@@ -39,36 +45,23 @@ class DetailTodoView {
     const detailTodoStateP = document.createElement("p");
     detailTodoStateP.classList.add("detailTodoP");
     detailTodoStateP.innerText = `Todo 상태 : ${state}`;
-
-    const todoDeleteButton = document.createElement("button");
-    todoDeleteButton.innerText = "delete";
-    todoDeleteButton.addEventListener("click", () => {
-      this.handleDeleteButton(detailTodo);
-    });
-
-    const todoStateToggleButton = document.createElement("button");
-    todoStateToggleButton.innerText = state;
-    todoStateToggleButton.addEventListener("click", () => {
-      this.handleToggleStateButton(detailTodo);
-    });
+    this.todoStateToggleButton.innerText = state;
 
     this.detailTodoDisplay.append(
       detailTodoIDP,
       detailTodoContentP,
       detailTodoStateP,
-      todoDeleteButton,
-      todoStateToggleButton
+      this.todoDeleteButton,
+      this.todoStateToggleButton
     );
   }
 
-  handleDeleteButton(detailTodo: TodoElement) {
-    const deleteEvent = new CustomEvent("deleteTodo", { detail: detailTodo });
-    document.dispatchEvent(deleteEvent);
+  bindTodoDeleteButton(handler: (this: HTMLButtonElement, event: MouseEvent) => any) {
+    this.todoDeleteButton.addEventListener("click", handler);
   }
 
-  handleToggleStateButton(todo: TodoElement) {
-    const toggleEvent = new CustomEvent("toggleTodoState", { detail: todo });
-    document.dispatchEvent(toggleEvent);
+  bindTodoStateToggleButton(handler: (this: HTMLButtonElement, event: MouseEvent) => any) {
+    this.todoStateToggleButton.addEventListener("click", handler);
   }
 }
 

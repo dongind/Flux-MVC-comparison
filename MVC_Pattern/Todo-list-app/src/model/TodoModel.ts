@@ -27,6 +27,12 @@ class TodoModel {
     if (!targetTodo) throw Error("Invalid todo Id");
     targetTodo.state = targetTodo.state === "DONE" ? "TODO" : "DONE";
   }
+
+  getTodoByID(todoId: number): TodoElement {
+    const todo = this.todos.find((todo: TodoElement) => todo.id === todoId);
+    if (!todo) throw Error("Invalid todo Id to find todo");
+    return todo;
+  }
 }
 
 export default TodoModel;

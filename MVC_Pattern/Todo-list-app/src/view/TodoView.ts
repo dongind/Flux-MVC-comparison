@@ -1,12 +1,20 @@
 // import { TodoElement } from "../types/todo";
 
-import { TodoElement } from "../types/todo";
+import {
+  TodoDeleteButtonObject,
+  TodoElement,
+  TodoElementObject,
+  TodoToggleStateButtonObject,
+} from "../types/todo";
 
 class TodoView {
   todoDiv: HTMLDivElement | null;
   todoDisplay: HTMLUListElement;
   todoInput: HTMLInputElement;
   todoAddButton: HTMLButtonElement;
+  todoDeleteButtonList: TodoDeleteButtonObject[] = [];
+  todoToggleStateButtonList: TodoToggleStateButtonObject[] = [];
+  todoElementList: TodoElementObject[] = [];
 
   constructor() {
     this.todoDiv = document.querySelector<HTMLDivElement>("#todo");
@@ -30,6 +38,7 @@ class TodoView {
     todos.forEach((todo: TodoElement) => {
       const todoElement = document.createElement("div");
       todoElement.classList.add("todoElement");
+      todoElement.id = todo.id.toString();
 
       const todoLi = document.createElement("li");
       todoLi.id = todo.id.toString();
@@ -39,16 +48,18 @@ class TodoView {
       const todoStateToggleButton = document.createElement("button");
       todoStateToggleButton.id = todo.id.toString();
       todoStateToggleButton.innerText = todo.state;
-      todoStateToggleButton.addEventListener("click", () => {
-        this.handleToggleStateButton(todo);
-      });
+      this.todoToggleStateButtonList = [
+        ...this.todoToggleStateButtonList,
+        { id: todo.id, toggleButton: todoStateToggleButton },
+      ];
 
       const todoDeleteButton = document.createElement("button");
       todoDeleteButton.id = todo.id.toString();
       todoDeleteButton.innerText = "delete";
-      todoDeleteButton.addEventListener("click", () => {
-        this.handleDeleteButton(todo);
-      });
+      this.todoDeleteButtonList = [
+        ...this.todoDeleteButtonList,
+        { id: todo.id, deleteButton: todoDeleteButton },
+      ];
 
       const todoButtonWrapper = document.createElement("div");
       todoButtonWrapper.classList.add("todoButtonWrapper");
@@ -56,11 +67,8 @@ class TodoView {
 
       todoElement.append(todoLi, todoButtonWrapper);
 
-      todoElement.addEventListener("click", (event: MouseEvent) => {
-        const clickElement = event.target as HTMLElement;
-        if (clickElement instanceof HTMLButtonElement) return;
-        this.handleTodoClick(todo);
-      });
+      this.todoElementList = [...this.todoElementList, { id: todo.id, todoElement: todoElement }];
+
       this.todoDisplay.appendChild(todoElement);
     });
   }
@@ -73,19 +81,22 @@ class TodoView {
     this.todoAddButton.addEventListener("click", handler);
   }
 
-  handleDeleteButton(todo: TodoElement) {
-    const deleteEvent = new CustomEvent("deleteTodo", { detail: todo });
-    document.dispatchEvent(deleteEvent);
+  bindDeleteTodo(handler: (this: HTMLButtonElement, event: MouseEvent) => any) {
+    this.todoDeleteButtonList.forEach(({ deleteButton }: TodoDeleteButtonObject) => {
+      deleteButton.addEventListener("click", handler);
+    });
   }
 
-  handleToggleStateButton(todo: TodoElement) {
-    const toggleEvent = new CustomEvent("toggleTodoState", { detail: todo });
-    document.dispatchEvent(toggleEvent);
+  bindToggleTodoState(handler: (this: HTMLButtonElement, event: MouseEvent) => any) {
+    this.todoToggleStateButtonList.forEach(({ toggleButton }: TodoToggleStateButtonObject) => {
+      toggleButton.addEventListener("click", handler);
+    });
   }
 
-  handleTodoClick(todo: TodoElement) {
-    const todoClickEvent = new CustomEvent("clickTodo", { detail: todo });
-    document.dispatchEvent(todoClickEvent);
+  bindClickTodoElement(handler: (this: HTMLDivElement, event: MouseEvent) => any) {
+    this.todoElementList.forEach(({ todoElement }: TodoElementObject) => {
+      todoElement.addEventListener("click", handler);
+    });
   }
 }
 

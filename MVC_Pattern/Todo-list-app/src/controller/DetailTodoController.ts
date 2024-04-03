@@ -10,18 +10,8 @@ class DetailTodoController {
     this.detailTodoModel = detailTodoModel;
     this.detailTodoView = detailTodoView;
     this.render();
-
-    document.addEventListener("deleteTodo", (() => {
-      this.handleDeleteTodo();
-    }) as EventListener);
-
-    document.addEventListener("toggleTodoState", (() => {
-      this.handleToggleTodoState();
-    }) as EventListener);
-
-    document.addEventListener("clickTodo", (({ detail: todo }: CustomEvent) => {
-      this.handleSetDetailTodo(todo);
-    }) as EventListener);
+    this.detailTodoView.bindTodoDeleteButton(this.handleDeleteTodo.bind(this));
+    this.detailTodoView.bindTodoStateToggleButton(this.handleToggleTodoState.bind(this));
   }
 
   render() {
@@ -34,6 +24,7 @@ class DetailTodoController {
   }
 
   handleToggleTodoState() {
+    this.detailTodoModel.toggleDetailTodoState();
     this.render();
   }
 

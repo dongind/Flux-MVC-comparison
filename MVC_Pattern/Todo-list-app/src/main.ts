@@ -24,6 +24,13 @@ const todoCounterView = new TodoCounterView();
 const detailTodoModel = new DetailTodoModel();
 const detailTodoView = new DetailTodoView();
 
-new TodoController(todoModel, todoView, todoCounterModel, todoCounterView);
+new TodoController(
+  todoModel,
+  todoView,
+  todoCounterModel,
+  todoCounterView,
+  detailTodoModel,
+  detailTodoView
+);
 new TodoCounterController(todoCounterModel, todoCounterView);
 new DetailTodoController(detailTodoModel, detailTodoView);
