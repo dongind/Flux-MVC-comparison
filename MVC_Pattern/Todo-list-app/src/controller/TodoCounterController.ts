@@ -2,8 +2,8 @@ import TodoCounterModel from "../model/TodoCounterModel";
 import TodoCounterView from "../view/TodoCounterView";
 
 class TodoCounterController {
-  todoCounterModel: TodoCounterModel;
-  todoCounterView: TodoCounterView;
+  private todoCounterModel: TodoCounterModel;
+  private todoCounterView: TodoCounterView;
 
   constructor(todoCounterModel: TodoCounterModel, todoCounterView: TodoCounterView) {
     this.todoCounterModel = todoCounterModel;

@@ -1,12 +1,13 @@
 import "./style.css";
 import TodoController from "./controller/TodoController";
 import TodoCounterController from "./controller/TodoCounterController";
-import DetailTodoModel from "./model/DetailTodo";
+import DetailTodoModel from "./model/DetailTodoModel";
 import TodoCounterModel from "./model/TodoCounterModel";
 import TodoModel from "./model/TodoModel";
 import DetailTodoView from "./view/DetailTodoView";
 import TodoCounterView from "./view/TodoCounterView";
 import TodoView from "./view/TodoView";
+import DetailTodoController from "./controller/DetailTodoController";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="todo"></div>
@@ -22,7 +23,7 @@ const todoCounterView = new TodoCounterView();
 
 const detailTodoModel = new DetailTodoModel();
 const detailTodoView = new DetailTodoView();
-detailTodoView.displayDetailTodo({ id: 1, content: "hello", state: "DONE" });
 
 new TodoController(todoModel, todoView, todoCounterModel, todoCounterView);
 new TodoCounterController(todoCounterModel, todoCounterView);
+new DetailTodoController(detailTodoModel, detailTodoView);

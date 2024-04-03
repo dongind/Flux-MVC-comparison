@@ -18,6 +18,11 @@ class DetailTodoModel {
   deleteDetailedTodo() {
     this.todoDetail = null;
   }
+
+  toggleDetailTodoState() {
+    if (!this.todoDetail) return;
+    this.todoDetail.state = this.todoDetail.state === "DONE" ? "TODO" : "DONE";
+  }
 }
 
 export default DetailTodoModel;
