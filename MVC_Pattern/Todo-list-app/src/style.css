@@ -134,6 +134,8 @@ button {
   display: flex;
 }
 
+/* TodoView */
+
 #todo {
   width: 500px;
   height: 500px;
@@ -150,12 +152,11 @@ button {
 #todoDisplay {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .todoElement {
   display: flex;
-  gap: 12px;
   justify-content: space-between;
   align-items: center;
   padding: 4px;
@@ -169,4 +170,19 @@ button {
 .todoButtonWrapper {
   display: flex;
   gap: 2px;
+}
+
+/* TodoCounter */
+#todoCounter {
+  width: 500px;
+  height: 500px;
+  margin: 15px;
+  padding: 15px;
+  border: black 1px solid;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }

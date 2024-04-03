@@ -10,7 +10,7 @@ class TodoView {
 
   constructor() {
     this.todoDiv = document.querySelector<HTMLDivElement>("#todo");
-    if (!this.todoDiv) throw Error("Not Proper Div id");
+    if (!this.todoDiv) throw Error("Not Proper todoDiv id");
 
     this.todoDisplay = document.createElement("ul");
     this.todoDisplay.id = "todoDisplay";
