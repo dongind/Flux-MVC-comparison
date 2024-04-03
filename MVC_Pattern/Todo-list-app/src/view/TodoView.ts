@@ -36,6 +36,13 @@ class TodoView {
       todoLi.classList.add("todoLi");
       todoLi.innerText = todo.content;
 
+      const todoStateToggleButton = document.createElement("button");
+      todoStateToggleButton.id = todo.id.toString();
+      todoStateToggleButton.innerText = todo.state;
+      todoStateToggleButton.addEventListener("click", () => {
+        this.handleToggleStateButton(todo.id);
+      });
+
       const todoDeleteButton = document.createElement("button");
       todoDeleteButton.id = todo.id.toString();
       todoDeleteButton.innerText = "delete";
@@ -43,7 +50,7 @@ class TodoView {
         this.handleDeleteButton(todo.id);
       });
 
-      todoElement.append(todoLi, todoDeleteButton);
+      todoElement.append(todoLi, todoStateToggleButton, todoDeleteButton);
       this.todoDisplay.appendChild(todoElement);
     });
   }
@@ -57,8 +64,13 @@ class TodoView {
   }
 
   handleDeleteButton(todoId: number) {
-    const event = new CustomEvent("deleteTodo", { detail: todoId });
-    document.dispatchEvent(event);
+    const deleteEvent = new CustomEvent("deleteTodo", { detail: todoId });
+    document.dispatchEvent(deleteEvent);
+  }
+
+  handleToggleStateButton(todoId: number) {
+    const toggleEvent = new CustomEvent("toggleTodoState", { detail: todoId });
+    document.dispatchEvent(toggleEvent);
   }
 }
 

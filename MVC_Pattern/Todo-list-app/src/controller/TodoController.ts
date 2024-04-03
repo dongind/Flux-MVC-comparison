@@ -15,6 +15,10 @@ class TodoController {
     document.addEventListener("deleteTodo", (({ detail: todoId }: CustomEvent) => {
       this.handleDeleteTodo(todoId);
     }) as EventListener);
+
+    document.addEventListener("toggleTodoState", (({ detail: todoId }: CustomEvent) => {
+      this.handleToggleTodoState(todoId);
+    }) as EventListener);
   }
 
   render() {
@@ -32,6 +36,11 @@ class TodoController {
 
   handleDeleteTodo(todoId: number) {
     this.todoModel.deleteTodo(todoId);
+    this.render();
+  }
+
+  handleToggleTodoState(todoId: number) {
+    this.todoModel.toggleTodoState(todoId);
     this.render();
   }
 }
