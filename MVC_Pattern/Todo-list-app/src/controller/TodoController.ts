@@ -76,6 +76,11 @@ class TodoController {
     this.todoModel.deleteTodo(targetId);
     this.render();
 
+    if (targetId === this.detailTodoModel.getDetailedTodo()?.id) {
+      this.detailTodoModel.deleteDetailedTodo();
+      this.renderDetail();
+    }
+
     this.todoView.todoDeleteButtonList = this.todoView.todoDeleteButtonList.filter(
       ({ id }: TodoDeleteButtonObject) => id !== targetId
     );
@@ -97,6 +102,8 @@ class TodoController {
 
     this.todoCounterModel.countToggledTodoState(todo.state);
     this.renderCounter();
+
+    this.renderDetail();
   }
 
   handleClickTodoElement(event: MouseEvent) {

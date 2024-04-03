@@ -33,4 +33,11 @@ new TodoController(
   detailTodoView
 );
 new TodoCounterController(todoCounterModel, todoCounterView);
-new DetailTodoController(detailTodoModel, detailTodoView);
+new DetailTodoController(
+  detailTodoModel,
+  detailTodoView,
+  todoModel,
+  todoView,
+  todoCounterModel,
+  todoCounterView
+);

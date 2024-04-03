@@ -51,8 +51,8 @@ class DetailTodoView {
       detailTodoIDP,
       detailTodoContentP,
       detailTodoStateP,
-      this.todoDeleteButton,
-      this.todoStateToggleButton
+      this.todoStateToggleButton,
+      this.todoDeleteButton
     );
   }
 
