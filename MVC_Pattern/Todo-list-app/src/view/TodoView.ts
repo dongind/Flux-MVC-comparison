@@ -55,6 +55,12 @@ class TodoView {
       todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
 
       todoElement.append(todoLi, todoButtonWrapper);
+
+      todoElement.addEventListener("click", (event: MouseEvent) => {
+        const clickElement = event.target as HTMLElement;
+        if (clickElement instanceof HTMLButtonElement) return;
+        this.handleTodoClick(todo);
+      });
       this.todoDisplay.appendChild(todoElement);
     });
   }
@@ -75,6 +81,11 @@ class TodoView {
   handleToggleStateButton(todo: TodoElement) {
     const toggleEvent = new CustomEvent("toggleTodoState", { detail: todo });
     document.dispatchEvent(toggleEvent);
+  }
+
+  handleTodoClick(todo: TodoElement) {
+    const todoClickEvent = new CustomEvent("clickTodo", { detail: todo });
+    document.dispatchEvent(todoClickEvent);
   }
 }
 

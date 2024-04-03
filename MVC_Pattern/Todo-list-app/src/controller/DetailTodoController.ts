@@ -1,4 +1,5 @@
 import DetailTodoModel from "../model/DetailTodoModel";
+import { TodoElement } from "../types/todo";
 import DetailTodoView from "../view/DetailTodoView";
 
 class DetailTodoController {
@@ -17,6 +18,10 @@ class DetailTodoController {
     document.addEventListener("toggleTodoState", (() => {
       this.handleToggleTodoState();
     }) as EventListener);
+
+    document.addEventListener("clickTodo", (({ detail: todo }: CustomEvent) => {
+      this.handleSetDetailTodo(todo);
+    }) as EventListener);
   }
 
   render() {
@@ -30,6 +35,11 @@ class DetailTodoController {
 
   handleToggleTodoState() {
     this.detailTodoModel.toggleDetailTodoState();
+    this.render();
+  }
+
+  handleSetDetailTodo(todo: TodoElement) {
+    this.detailTodoModel.setDetailedTodo(todo);
     this.render();
   }
 }
