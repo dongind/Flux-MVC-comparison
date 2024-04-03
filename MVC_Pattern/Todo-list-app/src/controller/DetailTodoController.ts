@@ -34,7 +34,6 @@ class DetailTodoController {
   }
 
   handleToggleTodoState() {
-    this.detailTodoModel.toggleDetailTodoState();
     this.render();
   }
 
