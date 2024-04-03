@@ -8,5 +8,13 @@ class TodoCounterController {
   constructor(todoCounterModel: TodoCounterModel, todoCounterView: TodoCounterView) {
     this.todoCounterModel = todoCounterModel;
     this.todoCounterView = todoCounterView;
+
+    this.render();
+  }
+
+  render() {
+    this.todoCounterView.displayTodoCounter(this.todoCounterModel.getCounterData());
   }
 }
+
+export default TodoCounterController;

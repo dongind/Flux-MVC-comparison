@@ -1,4 +1,5 @@
 import TodoController from "./controller/TodoController";
+import TodoCounterController from "./controller/TodoCounterController";
 import TodoCounterModel from "./model/TodoCounterModel";
 import TodoModel from "./model/TodoModel";
 import "./style.css";
@@ -16,3 +17,4 @@ new TodoController(todoModel, todoView);
 
 const todoCounterModel = new TodoCounterModel();
 const todoCounterView = new TodoCounterView();
+new TodoCounterController(todoCounterModel, todoCounterView);

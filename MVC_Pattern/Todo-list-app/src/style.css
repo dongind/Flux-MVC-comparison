@@ -180,9 +180,15 @@ button {
   padding: 15px;
   border: black 1px solid;
   flex-shrink: 0;
+}
+
+#todoCounterDisplay {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 12px;
+}
+
+#countTitleH3 {
+  font-size: 24px;
+  font-weight: bold;
 }

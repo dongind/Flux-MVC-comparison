@@ -15,7 +15,8 @@ class TodoCounterView {
 
   displayTodoCounter({ total, todoState, doneState }: TodoCounterData) {
     const countTitleH3 = document.createElement("h3");
-    countTitleH3.innerText = "|Todo 리스트 정보";
+    countTitleH3.id = "countTitleH3";
+    countTitleH3.innerText = "| Todo 리스트 정보";
 
     const totalCountP = document.createElement("p");
     totalCountP.innerText = `총 Todo 개수 : ${total}개`;
