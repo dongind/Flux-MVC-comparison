@@ -126,9 +126,15 @@ table {
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
 #app {
   display: flex;
 }
+
+/* TodoView */
 
 #todo {
   width: 500px;
@@ -146,11 +152,43 @@ table {
 #todoDisplay {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .todoElement {
   display: flex;
-  gap: 12px;
   justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+}
+
+.todoElement:hover {
+  background-color: rgb(219, 219, 219);
+  cursor: pointer;
+}
+
+.todoButtonWrapper {
+  display: flex;
+  gap: 2px;
+}
+
+/* TodoCounter */
+#todoCounter {
+  width: 500px;
+  height: 500px;
+  margin: 15px;
+  padding: 15px;
+  border: black 1px solid;
+  flex-shrink: 0;
+}
+
+#todoCounterDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#countTitleH3 {
+  font-size: 24px;
+  font-weight: bold;
 }

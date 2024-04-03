@@ -10,7 +10,7 @@ class TodoView {
 
   constructor() {
     this.todoDiv = document.querySelector<HTMLDivElement>("#todo");
-    if (!this.todoDiv) throw Error("Not Proper Div id");
+    if (!this.todoDiv) throw Error("Not Proper todoDiv id");
 
     this.todoDisplay = document.createElement("ul");
     this.todoDisplay.id = "todoDisplay";
@@ -33,16 +33,28 @@ class TodoView {
 
       const todoLi = document.createElement("li");
       todoLi.id = todo.id.toString();
+      todoLi.classList.add("todoLi");
       todoLi.innerText = todo.content;
+
+      const todoStateToggleButton = document.createElement("button");
+      todoStateToggleButton.id = todo.id.toString();
+      todoStateToggleButton.innerText = todo.state;
+      todoStateToggleButton.addEventListener("click", () => {
+        this.handleToggleStateButton(todo);
+      });
 
       const todoDeleteButton = document.createElement("button");
       todoDeleteButton.id = todo.id.toString();
       todoDeleteButton.innerText = "delete";
       todoDeleteButton.addEventListener("click", () => {
-        this.handleDeleteButton(todo.id);
+        this.handleDeleteButton(todo);
       });
 
-      todoElement.append(todoLi, todoDeleteButton);
+      const todoButtonWrapper = document.createElement("div");
+      todoButtonWrapper.classList.add("todoButtonWrapper");
+      todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
+
+      todoElement.append(todoLi, todoButtonWrapper);
       this.todoDisplay.appendChild(todoElement);
     });
   }
@@ -55,9 +67,14 @@ class TodoView {
     this.todoAddButton.addEventListener("click", handler);
   }
 
-  handleDeleteButton(todoId: number) {
-    const event = new CustomEvent("deleteTodo", { detail: todoId });
-    document.dispatchEvent(event);
+  handleDeleteButton(todo: TodoElement) {
+    const deleteEvent = new CustomEvent("deleteTodo", { detail: todo });
+    document.dispatchEvent(deleteEvent);
+  }
+
+  handleToggleStateButton(todo: TodoElement) {
+    const toggleEvent = new CustomEvent("toggleTodoState", { detail: todo });
+    document.dispatchEvent(toggleEvent);
   }
 }
 
