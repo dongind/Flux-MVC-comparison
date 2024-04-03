@@ -165,3 +165,8 @@ button {
   background-color: rgb(219, 219, 219);
   cursor: pointer;
 }
+
+.todoButtonWrapper {
+  display: flex;
+  gap: 2px;
+}

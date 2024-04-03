@@ -50,7 +50,11 @@ class TodoView {
         this.handleDeleteButton(todo.id);
       });
 
-      todoElement.append(todoLi, todoStateToggleButton, todoDeleteButton);
+      const todoButtonWrapper = document.createElement("div");
+      todoButtonWrapper.classList.add("todoButtonWrapper");
+      todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
+
+      todoElement.append(todoLi, todoButtonWrapper);
       this.todoDisplay.appendChild(todoElement);
     });
   }
