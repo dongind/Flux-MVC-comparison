@@ -23,7 +23,10 @@ class TodoModel {
   }
 
   toggleTodoState(todoId: number): void {
-    this.todos[todoId].state = this.todos[todoId].state === "DONE" ? "TODO" : "DONE";
+    // this.todos[todoId].state = this.todos[todoId].state === "DONE" ? "TODO" : "DONE";
+    const targetTodo = this.todos.find((todo: TodoElement) => todo.id === todoId);
+    if (!targetTodo) throw Error("Invalid todo Id");
+    targetTodo.state = targetTodo.state === "DONE" ? "TODO" : "DONE";
   }
 }
 

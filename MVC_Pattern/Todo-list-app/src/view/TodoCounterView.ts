@@ -14,6 +14,8 @@ class TodoCounterView {
   }
 
   displayTodoCounter({ total, todoState, doneState }: TodoCounterData) {
+    this.todoCounterDisplay.innerHTML = "";
+
     const countTitleH3 = document.createElement("h3");
     countTitleH3.id = "countTitleH3";
     countTitleH3.innerText = "| Todo 리스트 정보";

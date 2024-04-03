@@ -13,8 +13,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 
 const todoModel = new TodoModel();
 const todoView = new TodoView();
-new TodoController(todoModel, todoView);
 
 const todoCounterModel = new TodoCounterModel();
 const todoCounterView = new TodoCounterView();
+
+new TodoController(todoModel, todoView, todoCounterModel, todoCounterView);
 new TodoCounterController(todoCounterModel, todoCounterView);
