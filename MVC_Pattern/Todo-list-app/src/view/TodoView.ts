@@ -33,6 +33,7 @@ class TodoView {
 
       const todoLi = document.createElement("li");
       todoLi.id = todo.id.toString();
+      todoLi.classList.add("todoLi");
       todoLi.innerText = todo.content;
 
       const todoDeleteButton = document.createElement("button");

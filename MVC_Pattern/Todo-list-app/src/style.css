@@ -126,6 +126,10 @@ table {
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
 #app {
   display: flex;
 }
@@ -153,4 +157,11 @@ table {
   display: flex;
   gap: 12px;
   justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+}
+
+.todoElement:hover {
+  background-color: rgb(219, 219, 219);
+  cursor: pointer;
 }
