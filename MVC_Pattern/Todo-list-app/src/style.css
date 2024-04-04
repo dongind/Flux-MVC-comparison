@@ -192,3 +192,27 @@ button {
   font-size: 24px;
   font-weight: bold;
 }
+
+/* DetailTodo */
+#detailTodo {
+  width: 500px;
+  height: 500px;
+  margin: 15px;
+  padding: 15px;
+  border: black 1px solid;
+  flex-shrink: 0;
+}
+
+#detailTodoTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#detailTodoDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  gap: 12px;
+}

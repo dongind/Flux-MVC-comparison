@@ -11,3 +11,18 @@ export interface TodoCounterData {
   todoState: number;
   doneState: number;
 }
+
+export interface TodoDeleteButtonObject {
+  id: number;
+  deleteButton: HTMLButtonElement;
+}
+
+export interface TodoToggleStateButtonObject {
+  id: number;
+  toggleButton: HTMLButtonElement;
+}
+
+export interface TodoElementObject {
+  id: number;
+  todoElement: HTMLDivElement;
+}
