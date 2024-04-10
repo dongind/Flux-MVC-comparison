@@ -1,3 +1,5 @@
+import { ACTIONS } from "../actions/\bactions";
+import dispatcher from "../dispatchers/dispatcher";
 import detailStore from "../stores/detailStore";
 import { TodoElement } from "../types/todo";
 import ViewComponent from "./ViewComponent";
@@ -16,12 +18,18 @@ const content = (todo: TodoElement | null) => {
     detailTodoDisplay.append(noDetailTodoP);
     return [detailTodoTitle, detailTodoDisplay];
   }
+  const { id, content, state } = todo;
 
   const todoDeleteButton = document.createElement("button");
   todoDeleteButton.innerText = "delete";
+  todoDeleteButton.addEventListener("click", () => {
+    dispatcher.dispatch(ACTIONS.removeTodo(id, state));
+  });
 
   const todoStateToggleButton = document.createElement("button");
-  const { id, content, state } = todo;
+  todoStateToggleButton.addEventListener("click", () => {
+    dispatcher.dispatch(ACTIONS.toggleTodo(id, state));
+  });
 
   const detailTodoIDP = document.createElement("p");
   detailTodoIDP.classList.add("detailTodoP");
