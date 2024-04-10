@@ -1,6 +1,7 @@
 import { ACTIONS } from "../actions/\bactions";
 import dispatcher from "../dispatchers/dispatcher";
 import todoStore from "../stores/todoStore";
+
 import { TodoElement } from "../types/todo";
 import ViewComponent from "./ViewComponent";
 

@@ -1,4 +1,5 @@
 import dispatcher from "../dispatchers/dispatcher";
+import { Action } from "../types/actions";
 
 class Store<S> {
   private state: { data: S };
