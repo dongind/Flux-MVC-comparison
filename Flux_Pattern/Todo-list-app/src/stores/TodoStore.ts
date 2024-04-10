@@ -1,39 +1,22 @@
-import dispatcher from "../dispatchers/dispatcher";
+import { TodoElement } from "../types/todo";
+import Store from "./Store";
 
-class Store {
-  private state: Object;
-  private subscribers: Function[];
-  private actionHandler: (action: Action) => void;
-
-  constructor(state: Object, actionHandler: (action: Action) => void) {
-    this.state = state;
-    this.subscribers = [];
-    this.actionHandler = actionHandler;
-    dispatcher.register(this.dispatchRegister.bind(this));
+const todoStore = new Store<TodoElement[]>(
+  [],
+  ({ type, payload }: Action, state: { data: TodoElement[] }) => {
+    switch (type) {
+      case ActionTypes.ADD_TODO:
+        state.data = [
+          ...state.data,
+          { id: state.data.length, content: payload as string, state: "TODO" },
+        ];
+        break;
+      case ActionTypes.REMOVE_TODO:
+        state.data = state.data.filter(
+          (todo: TodoElement) => todo.id !== (payload as number)
+        );
+    }
   }
+);
 
-  getState() {
-    return this.state;
-  }
-
-  subscribe(callback: Function) {
-    this.subscribers.push(callback);
-    const id = this.subscribers.length - 1;
-    return () => {
-      this.subscribers = this.subscribers.filter((_, index) => index !== id);
-    };
-  }
-
-  notify() {
-    this.subscribers.forEach((subscriber) => {
-      subscriber();
-    });
-  }
-
-  dispatchRegister(action: Action) {
-    this.actionHandler(action);
-    this.notify();
-  }
-}
-
-export default Store;
+export default todoStore;

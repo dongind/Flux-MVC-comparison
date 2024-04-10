@@ -1,19 +1,22 @@
 import dispatcher from "../dispatchers/dispatcher";
 
-class Store {
-  private state: Object;
+class Store<S> {
+  private state: { data: S };
   private subscribers: Function[];
-  private actionHandler: (action: Action) => void;
+  private actionHandler: (action: Action, state: { data: S }) => void;
 
-  constructor(state: Object, actionHandler: (action: Action) => void) {
-    this.state = state;
+  constructor(
+    state: S,
+    actionHandler: (action: Action, state: { data: S }) => void
+  ) {
+    this.state = { data: state };
     this.subscribers = [];
     this.actionHandler = actionHandler;
     dispatcher.register(this.dispatchRegister.bind(this));
   }
 
   getState() {
-    return this.state;
+    return this.state.data;
   }
 
   subscribe(callback: Function) {
@@ -31,7 +34,7 @@ class Store {
   }
 
   dispatchRegister(action: Action) {
-    this.actionHandler(action);
+    this.actionHandler(action, this.state);
     this.notify();
   }
 }
