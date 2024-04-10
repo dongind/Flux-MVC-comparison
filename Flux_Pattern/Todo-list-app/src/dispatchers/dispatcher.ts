@@ -1,4 +1,5 @@
 import { Action } from "../types/actions";
+import { Dispatcher } from "../types/dispatcher";
 
 const actionHandlers: Function[] = [];
 

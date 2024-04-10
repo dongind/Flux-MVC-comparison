@@ -1,8 +1,8 @@
 import dispatcher from "../dispatchers/dispatcher";
 import todoStore from "../stores/todoStore";
-import { ACTION_TYPES } from "../types/actions";
+import { ActionTypes } from "../types/actions";
 import { TodoElement } from "../types/todo";
-import ViewComponent from "./ViewComponents";
+import ViewComponent from "./ViewComponent";
 
 const content = (todos: TodoElement[]) => {
   const todoDisplay = document.createElement("ul");
@@ -18,7 +18,7 @@ const content = (todos: TodoElement[]) => {
   todoAddButton.addEventListener("click", () => {
     if (!todoInput.value.trim()) return;
     dispatcher.dispatch({
-      type: "ADD_TODO",
+      type: ActionTypes.ADD_TODO,
       payload: todoInput.value,
     });
     todoInput.value = "";
@@ -37,6 +37,16 @@ const content = (todos: TodoElement[]) => {
     const todoStateToggleButton = document.createElement("button");
     todoStateToggleButton.id = todo.id.toString();
     todoStateToggleButton.innerText = todo.state;
+    todoStateToggleButton.addEventListener("click", (event: MouseEvent) => {
+      const currentTarget = event.currentTarget as HTMLButtonElement;
+      dispatcher.dispatch({
+        type: ActionTypes.TOGGLE_TODO,
+        payload: {
+          id: Number(currentTarget.id),
+          state: todo.state,
+        },
+      });
+    });
 
     const todoDeleteButton = document.createElement("button");
     todoDeleteButton.id = todo.id.toString();
@@ -44,8 +54,8 @@ const content = (todos: TodoElement[]) => {
     todoDeleteButton.addEventListener("click", (event: MouseEvent) => {
       const currentTarget = event.currentTarget as HTMLButtonElement;
       dispatcher.dispatch({
-        type: ACTION_TYPES.REMOVE_TODO,
-        payload: Number(currentTarget.id),
+        type: ActionTypes.REMOVE_TODO,
+        payload: { id: Number(currentTarget.id), state: todo.state },
       });
     });
 
@@ -54,7 +64,6 @@ const content = (todos: TodoElement[]) => {
     todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
 
     todoElement.append(todoLi, todoButtonWrapper);
-
     todoDisplay.appendChild(todoElement);
   });
 
