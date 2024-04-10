@@ -19,6 +19,17 @@ const counterStore = new Store<TodoCounter>(
           data.todoState -= 1;
         }
         break;
+      case ActionTypes.TOGGLE_TODO:
+        if (payload.state === TODO_STATE.DONE) {
+          data.doneState -= 1;
+          data.todoState += 1;
+        } else {
+          data.doneState += 1;
+          data.todoState -= 1;
+        }
+        break;
+      default:
+        break;
     }
   }
 );

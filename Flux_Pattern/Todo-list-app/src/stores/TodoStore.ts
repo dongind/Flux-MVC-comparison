@@ -24,6 +24,8 @@ const todoStore = new Store<TodoElement[]>(
         if (!targetTodo) throw Error("invalid todo id to toggle");
         targetTodo.state = targetTodo.state === "DONE" ? "TODO" : "DONE";
         break;
+      default:
+        break;
     }
   }
 );
