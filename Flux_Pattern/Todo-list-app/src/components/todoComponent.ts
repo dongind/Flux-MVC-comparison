@@ -1,8 +1,8 @@
 import dispatcher from "../dispatchers/dispatcher";
 import todoStore from "../stores/todoStore";
-import { ACTION_TYPES } from "../types/actions";
+import { ActionTypes } from "../types/actions";
 import { TodoElement } from "../types/todo";
-import ViewComponent from "./ViewComponents";
+import ViewComponent from "./ViewComponent";
 
 const content = (todos: TodoElement[]) => {
   const todoDisplay = document.createElement("ul");
@@ -44,8 +44,8 @@ const content = (todos: TodoElement[]) => {
     todoDeleteButton.addEventListener("click", (event: MouseEvent) => {
       const currentTarget = event.currentTarget as HTMLButtonElement;
       dispatcher.dispatch({
-        type: ACTION_TYPES.REMOVE_TODO,
-        payload: Number(currentTarget.id),
+        type: ActionTypes.REMOVE_TODO,
+        payload: { id: Number(currentTarget.id), state: todo.state },
       });
     });
 

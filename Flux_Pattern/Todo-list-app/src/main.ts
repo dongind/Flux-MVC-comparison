@@ -1,5 +1,6 @@
 import "./style.css";
-import createTodoComponents from "./components/todoComponents";
+import createTodoComponents from "./components/todoComponent";
+import createCounterComponent from "./components/counterComponent";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div id="todo"></div>
@@ -8,3 +9,4 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 `;
 
 createTodoComponents(document.querySelector("#todo"));
+createCounterComponent(document.querySelector("#todoCounter"));

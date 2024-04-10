@@ -1,4 +1,4 @@
-const TODO_STATE = {
+export const TODO_STATE = {
   TODO: "TODO",
   DONE: "DONE",
 };

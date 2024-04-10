@@ -1,4 +1,5 @@
-import { ACTION_TYPES, Action } from "../types/actions";
+import { TODO_STATE } from "../constants/todo";
+import { ActionTypes, Action } from "../types/actions";
 import { TodoCounter } from "../types/todo";
 import Store from "./Store";
 
@@ -6,16 +7,16 @@ const counterStore = new Store<TodoCounter>(
   { total: 0, todoState: 0, doneState: 0 },
   ({ type, payload }: Action, { data }: { data: TodoCounter }) => {
     switch (type) {
-      case ACTION_TYPES.ADD_TODO:
+      case ActionTypes.ADD_TODO:
         data.total += 1;
         data.todoState += 1;
         break;
-      case ACTION_TYPES.REMOVE_TODO:
+      case ActionTypes.REMOVE_TODO:
         data.total -= 1;
-        if (payload === TODO_STATE.DONE) {
-          data.todoState -= 1;
-        } else {
+        if (payload.state === TODO_STATE.DONE) {
           data.doneState -= 1;
+        } else {
+          data.todoState -= 1;
         }
         break;
     }
