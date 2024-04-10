@@ -64,6 +64,13 @@ const content = (todos: TodoElement[]) => {
     todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
 
     todoElement.append(todoLi, todoButtonWrapper);
+    todoElement.addEventListener("click", (event: MouseEvent) => {
+      if (event.target instanceof HTMLButtonElement) return;
+      dispatcher.dispatch({
+        type: ActionTypes.SELECT_TODO,
+        payload: todo,
+      });
+    });
     todoDisplay.appendChild(todoElement);
   });
 

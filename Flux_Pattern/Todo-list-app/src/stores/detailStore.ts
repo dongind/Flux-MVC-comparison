@@ -4,14 +4,18 @@ import Store from "./Store";
 
 const detailStore = new Store<TodoElement | null>(
   null,
-  ({ type, payload }: Action, { data }: { data: TodoElement | null }) => {
+  ({ type, payload }: Action, state: { data: TodoElement | null }) => {
     switch (type) {
       case ActionTypes.SELECT_TODO:
-        data = payload;
+        console.log(payload);
+        state.data = payload;
+        console.log(state.data);
         break;
       case ActionTypes.REMOVE_TODO:
-        if (!data || data.id !== payload.id) break;
-        data = null;
+        // if (!data || data.id !== payload.id) break;
+        console.log(state.data);
+        state.data = null;
+        console.log(state.data);
         break;
       default:
         break;
