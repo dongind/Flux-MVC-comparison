@@ -5,3 +5,9 @@ export interface TodoElement {
   content: string;
   state: TodoState;
 }
+
+export interface TodoCounter {
+  total: number;
+  todoState: number;
+  doneState: number;
+}
