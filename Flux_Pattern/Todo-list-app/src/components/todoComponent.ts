@@ -1,6 +1,6 @@
+import { ACTIONS } from "../actions/\bactions";
 import dispatcher from "../dispatchers/dispatcher";
 import todoStore from "../stores/todoStore";
-import { ActionTypes } from "../types/actions";
 import { TodoElement } from "../types/todo";
 import ViewComponent from "./ViewComponent";
 
@@ -17,10 +17,7 @@ const content = (todos: TodoElement[]) => {
 
   todoAddButton.addEventListener("click", () => {
     if (!todoInput.value.trim()) return;
-    dispatcher.dispatch({
-      type: ActionTypes.ADD_TODO,
-      payload: todoInput.value,
-    });
+    dispatcher.dispatch(ACTIONS.addTodo(todoInput.value.trim()));
     todoInput.value = "";
   });
 
@@ -39,13 +36,9 @@ const content = (todos: TodoElement[]) => {
     todoStateToggleButton.innerText = todo.state;
     todoStateToggleButton.addEventListener("click", (event: MouseEvent) => {
       const currentTarget = event.currentTarget as HTMLButtonElement;
-      dispatcher.dispatch({
-        type: ActionTypes.TOGGLE_TODO,
-        payload: {
-          id: Number(currentTarget.id),
-          state: todo.state,
-        },
-      });
+      dispatcher.dispatch(
+        ACTIONS.toggleTodo(Number(currentTarget.id), todo.state)
+      );
     });
 
     const todoDeleteButton = document.createElement("button");
@@ -53,10 +46,9 @@ const content = (todos: TodoElement[]) => {
     todoDeleteButton.innerText = "delete";
     todoDeleteButton.addEventListener("click", (event: MouseEvent) => {
       const currentTarget = event.currentTarget as HTMLButtonElement;
-      dispatcher.dispatch({
-        type: ActionTypes.REMOVE_TODO,
-        payload: { id: Number(currentTarget.id), state: todo.state },
-      });
+      dispatcher.dispatch(
+        ACTIONS.removeTodo(Number(currentTarget.id), todo.state)
+      );
     });
 
     const todoButtonWrapper = document.createElement("div");
@@ -64,6 +56,10 @@ const content = (todos: TodoElement[]) => {
     todoButtonWrapper.append(todoStateToggleButton, todoDeleteButton);
 
     todoElement.append(todoLi, todoButtonWrapper);
+    todoElement.addEventListener("click", (event: MouseEvent) => {
+      if (event.target instanceof HTMLButtonElement) return;
+      dispatcher.dispatch(ACTIONS.selectTodo(todo));
+    });
     todoDisplay.appendChild(todoElement);
   });
 
