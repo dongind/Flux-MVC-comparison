@@ -16,6 +16,14 @@ const todoStore = new Store<TodoElement[]>(
         state.data = state.data.filter(
           (todo: TodoElement) => todo.id !== payload.id
         );
+        break;
+      case ActionTypes.TOGGLE_TODO:
+        const targetTodo = todoStore
+          .getState()
+          .find((todo) => todo.id === payload.id);
+        if (!targetTodo) throw Error("invalid todo id to toggle");
+        targetTodo.state = targetTodo.state === "DONE" ? "TODO" : "DONE";
+        break;
     }
   }
 );
