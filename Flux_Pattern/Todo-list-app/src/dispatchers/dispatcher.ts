@@ -1,3 +1,5 @@
+import { Action } from "../types/actions";
+
 const actionHandlers: Function[] = [];
 
 const dispatcher: Dispatcher = Object.create({
