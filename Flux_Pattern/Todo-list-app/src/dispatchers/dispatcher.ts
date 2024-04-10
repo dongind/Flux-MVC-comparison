@@ -1,38 +1,14 @@
-class Dispatcher {
-  private callbacks: Function[];
+const actionHandlers: Function[] = [];
 
-  constructor() {
-    this.callbacks = [];
-  }
-
-  register(callback: Function) {
-    this.callbacks.push(callback);
-    return this.callbacks.length - 1;
-  }
-
-  dispatch(payload: any) {
-    let resolves: ((value: any) => void)[] = [];
-    let rejects: ((reason?: any) => void)[] = [];
-
-    let promises = this.callbacks.map((_, index) => {
-      return new Promise((resolve, reject) => {
-        resolves[index] = resolve;
-        rejects[index] = reject;
-      });
+const dispatcher: Dispatcher = Object.create({
+  register: function (callback: Function): void {
+    actionHandlers.push(callback);
+  },
+  dispatch: function (action: Action): void {
+    actionHandlers.forEach((actionHandler: Function) => {
+      actionHandler(action);
     });
+  },
+});
 
-    this.callbacks.forEach((callback, index) => {
-      Promise.resolve(callback(payload)).then(
-        () => {
-          resolves[index](payload);
-        },
-        () => {
-          rejects[index](new Error("Dispatcher callback unsuccessful"));
-        }
-      );
-    });
-    promises = [];
-  }
-}
-
-export default Dispatcher;
+export default dispatcher;
