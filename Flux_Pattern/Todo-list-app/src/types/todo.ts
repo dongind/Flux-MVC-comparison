@@ -1,4 +1,9 @@
-export type TodoState = "TODO" | "DONE";
+// export type TodoState = "TODO" | "DONE";
+
+export enum TodoState {
+  TODO = "TODO",
+  DONE = "DONE",
+}
 
 export interface TodoElement {
   id: number;
